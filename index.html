@@ -28,18 +28,13 @@
                 <input class="col-sm form-control chCol" type="text" placeholder="心情日记..">
                 <button class="col-sm btn btn-success" type="button">搜索</button>
             </form>
-
-
         </div>
     </div>
 </nav>
-
 <div class="container col-md-8 col-lg-7 col-xl-5" style="margin-top:70px">
     <div id="tips"></div>
-
     <div class="card chCol">
         <div class="card-header">
-
             <button id="saVe" onclick="sAve()" class="btn btn-success float-right">保存</button>
             <input id="tiTle" type="text" class="form-control col-9 chCol" placeholder="日记题目.." autofocus>
         </div>
@@ -53,37 +48,25 @@
     <p id="diAry">未完成加载或正在加载中，js代码没有很好地执行，请检查浏览器是否支持或刷新。</p>
     <span class="float-right" style="color: rgba(173,173,173,0.36)">Website by Lafish, Power by Bootstrap.</span>
 </div>
-
-
-<!-- 模态框 -->
 <div class="modal fade" id="myModal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="card">
-                <!-- 模态框头部 -->
                 <div class="card-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">重新编辑<span id="I"></span></h4>
                 </div>
-
-                <!-- 模态框主体 -->
                 <div class="card-body">
                     <input id="E1dit" type="text" class="form-control chCol" placeholder="修改标题.." autofocus>
                     <textarea id="E2dit" class="form-control chCol" rows="4" placeholder="修改内容.."></textarea>
                 </div>
-
-                <!-- 模态框底部 -->
                 <div class="card-footer">
                     <button type="button" onclick="finEdit()" class="btn btn-sm btn-success" style="float: right;">保存
                     </button>
-
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
 </body>
-
 </html>
