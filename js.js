@@ -89,7 +89,8 @@ window.onload = function () {
             var disDiary = "";
             for (var i = 0; i < dAtaObj.length; i++) {
                 disDiary = disDiary +
-                    "<div class=\"card chCol\"><div class=\"card-header\">" +
+                    "<div id='D" + i +
+                    "' class=\"card chCol\"><div class=\"card-header\">" +
                     "<button class=\"btn btn-sm btn-info\" style=\"float: right\" data-toggle=\"modal\" onclick='showEdit(" + i + ")' data-target=\"#myModal\">编辑</button>" +
                     "<h3>" + dAtaObj[i].title + "</h3></div>" +
                     "<div class=\"card-body\">" + dAtaObj[i].diary +
