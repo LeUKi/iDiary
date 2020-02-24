@@ -144,7 +144,7 @@ window.onload = function () {
             localStorage.tips = 0;
         }
         $("#s1arch").keyup(function () {
-            alert(搜索功能还未完善);
+            alert("搜索功能还未完善");
         });
     } else {//无法进入
 
