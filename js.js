@@ -2,6 +2,7 @@
 if (localStorage.diaryData == undefined || localStorage.diaryData == "[null]") {
     localStorage.diaryData = "[]"
 }
+var diarytitle = [];
 var dAtaStr = localStorage.diaryData;
 var dAtaObj = JSON.parse(dAtaStr);
 var focDiary = "";
@@ -13,7 +14,8 @@ function showEdit(i) {//显示编辑
 }
 function finEdit() {
     if ($("#E1dit").val()) {
-        var s = '{"title":"' + $("#E1dit").val() + '","diary":"' + $("#E2dit").val() + '","time":"' + focTime + '"}';
+        var s = '{"title":"' + $("#E1dit").val() + '","diary":"' +
+            $("#E2dit").val() + '","time":"' + focTime + '"}';
         s = s.replace(/[\r\n]/g, "<br>");
         var o = JSON.parse(s);
         localStorage.tips = 2;
@@ -60,7 +62,8 @@ function chSkin2() {//显示皮肤2
 }
 function sAve() {
     if ($("#tiTle").val()) {
-        var s = '{"title":"' + $("#tiTle").val() + '","diary":"' + $("#coNtent").val() + '","time":"' + getTime() + '"}';
+        var s = '{"title":"' + $("#tiTle").val() + '","diary":"' +
+            $("#coNtent").val() + '","time":"' + getTime() + '"}';
         s = s.replace(/[\r\n]/g, "<br>");
         var o = JSON.parse(s);
         localStorage.tips = 1;
@@ -88,14 +91,18 @@ window.onload = function () {
         if (dAtaObj.length) {//非第一次
             var disDiary = "";
             for (var i = 0; i < dAtaObj.length; i++) {
+                diarytitle.push(dAtaObj[i].title);
                 disDiary = disDiary +
                     "<div id='D" + i +
                     "' class=\"card chCol\"><div class=\"card-header\">" +
-                    "<button class=\"btn btn-sm btn-info\" style=\"float: right\" data-toggle=\"modal\" onclick='showEdit(" + i + ")' data-target=\"#myModal\">编辑</button>" +
+                    "<button class=\"btn btn-sm btn-info\" style=\"float: right\"" +
+                    " data-toggle=\"modal\" onclick='showEdit(" + i + ")' data-target=\"#myModal\">编辑</button>" +
                     "<h3>" + dAtaObj[i].title + "</h3></div>" +
                     "<div class=\"card-body\">" + dAtaObj[i].diary +
                     "</div><div class=\"card-footer\">" +
-                    "<button class=\"btn btn-sm btn-danger\" onclick=\'localStorage.tips = 3;localStorage.undo=dAtaStr;chDiary(" + i + ",1,);\' style=\"float: right\">删除</button><small>" + dAtaObj[i].time + "</small></div></div><br>";
+                    "<button class=\"btn btn-sm btn-danger\" onclick=\'localStorage.tips =" +
+                    " 3;localStorage.undo=dAtaStr;chDiary(" + i + ",1,);\' style=\"float: right\">" +
+                    "删除</button><small>" + dAtaObj[i].time + "</small></div></div><br>";
             }
             document.getElementById("diAry").innerHTML = disDiary;
         } else {//第一次进入
@@ -103,9 +110,10 @@ window.onload = function () {
                 "<div class=\"card chCol\"><div class=\"card-header\">" +
                 "<button class=\"btn btn-sm btn-info\" style=\"float: right\" disabled>不可编辑</button>" +
                 "<h3>Hello World!</h3></div>" +
-                "<div class=\"card-body\">这是一篇示范日记！<br>当你第一次进入或本地没有日记时会展示这篇日记内容。<br>现在你可以试着添加一篇日记。</div>" +
-                "<div class=\"card-footer\">" +
-                "<button class=\"btn btn-sm btn-danger\" style=\"float: right\" disabled>不可删除</button><small>" + getTime() + "</small></div></div><br>";
+                "<div class=\"card-body\">这是一篇示范日记！<br>当你第一次进入或本地没有日记时会展示这篇日记内容。" +
+                "<br>现在你可以试着添加一篇日记。</div><div class=\"card-footer\">" +
+                "<button class=\"btn btn-sm btn-danger\" style=\"float: right\" disabled>不可删除</button>" +
+                "<small>" + getTime() + "</small></div></div><br>";
         }//进入后
         if (localStorage.skin == 2) {
             chSkin2();
@@ -130,11 +138,16 @@ window.onload = function () {
         if (localStorage.tips == 3) {
             $("#tips").html("  <div class=\"alert alert-success alert-dismissible fade show\">" +
                 "<button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>" +
-                "<strong>完成!</strong> 你的日记已删除。 <strong><a href=\"#\" onclick='unDo()' class=\"alert-link\">撤销 ？</a></strong>" +
+                "<strong>完成!</strong> 你的日记已删除。 <strong><a href=\"#\" " +
+                "onclick='unDo()' class=\"alert-link\">撤销 ？</a></strong>" +
                 "</div>");
             localStorage.tips = 0;
         }
+        $("#s1arch").keyup(function () {
+            alert(搜索功能还未完善);
+        });
     } else {//无法进入
+
         alert("你的浏览器不支持");
     }
 };
