@@ -94,25 +94,35 @@ function chDiary(a, b, o) {
 
     location.reload();
 }
+
+function displayD(ii) {
+    var disDiary = "";
+    var i = 0;
+    var long = dAtaObj.length;
+    if (ii != undefined) {
+        i = ii;
+        long = ii + 1;
+    }
+    for (; i < long; i++) {
+        diarytitle.push(dAtaObj[i].title);
+        disDiary = disDiary +
+            "<div id='D" + i +
+            "' class=\"card chCol\"><div class=\"card-header\">" +
+            "<button class=\"btn btn-sm btn-info\" style=\"float: right\"" +
+            " data-toggle=\"modal\" onclick='showEdit(" + i + ")' data-target=\"#myModal\">编辑</button>" +
+            "<h3>" + dAtaObj[i].title + "</h3></div>" +
+            "<div class=\"card-body\">" + dAtaObj[i].diary +
+            "</div><div class=\"card-footer\">" +
+            "<button class=\"btn btn-sm btn-danger\" onclick=\'localStorage.tips =" +
+            " 3;localStorage.undo=dAtaStr;chDiary(" + i + ",1,);\' style=\"float: right\">" +
+            "删除</button><small>" + dAtaObj[i].time + "</small></div></div><br>";
+    }
+    document.getElementById("diAry").innerHTML = disDiary;
+}
 window.onload = function () {
     if (typeof (Storage) !== "undefined") {
         if (dAtaObj.length) {//非第一次
-            var disDiary = "";
-            for (var i = 0; i < dAtaObj.length; i++) {
-                diarytitle.push(dAtaObj[i].title);
-                disDiary = disDiary +
-                    "<div id='D" + i +
-                    "' class=\"card chCol\"><div class=\"card-header\">" +
-                    "<button class=\"btn btn-sm btn-info\" style=\"float: right\"" +
-                    " data-toggle=\"modal\" onclick='showEdit(" + i + ")' data-target=\"#myModal\">编辑</button>" +
-                    "<h3>" + dAtaObj[i].title + "</h3></div>" +
-                    "<div class=\"card-body\">" + dAtaObj[i].diary +
-                    "</div><div class=\"card-footer\">" +
-                    "<button class=\"btn btn-sm btn-danger\" onclick=\'localStorage.tips =" +
-                    " 3;localStorage.undo=dAtaStr;chDiary(" + i + ",1,);\' style=\"float: right\">" +
-                    "删除</button><small>" + dAtaObj[i].time + "</small></div></div><br>";
-            }
-            document.getElementById("diAry").innerHTML = disDiary;
+            displayD();
         } else {//第一次进入
             document.getElementById("diAry").innerHTML =
                 "<div class=\"card chCol\"><div class=\"card-header\">" +
@@ -152,7 +162,7 @@ window.onload = function () {
             localStorage.tips = 0;
         }
         $("#s1arch").keyup(function () {
-            s1arch()
+            s1arch();
         });
     } else {//无法进入
 
