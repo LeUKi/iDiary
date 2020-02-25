@@ -147,6 +147,9 @@ window.onload = function () {
                 diarytitle.push(dAtaObj[i].title);
             }
             displayD();
+            $("#s1arch").keyup(function () {
+                s1arch();
+            });
         } else {//第一次进入
             document.getElementById("diAry").innerHTML =
                 "<div class=\"card chCol\"><div class=\"card-header\">" +
@@ -185,9 +188,6 @@ window.onload = function () {
                 "</div>");
             localStorage.tips = 0;
         }
-        $("#s1arch").keyup(function () {
-            s1arch();
-        });
     } else {//无法进入
 
         alert("你的浏览器不支持");
