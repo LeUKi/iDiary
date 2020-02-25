@@ -12,6 +12,14 @@ function showEdit(i) {//显示编辑
     focDiary = i;
     focTime = dAtaObj[i].time;
 }
+
+function s1arch() {
+    alert($("#s1arch").val());
+    for (var i = 0; i < dAtaObj.length; i++) {
+
+    }
+}
+
 function finEdit() {
     if ($("#E1dit").val()) {
         var s = '{"title":"' + $("#E1dit").val() + '","diary":"' +
@@ -144,7 +152,7 @@ window.onload = function () {
             localStorage.tips = 0;
         }
         $("#s1arch").keyup(function () {
-            alert("搜索功能还未完善");
+            s1arch()
         });
     } else {//无法进入
 
