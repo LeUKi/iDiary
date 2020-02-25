@@ -6,6 +6,7 @@ var diarytitle = [];
 var dAtaStr = localStorage.diaryData;
 var dAtaObj = JSON.parse(dAtaStr);
 var focDiary = "";
+
 function showEdit(i) {//显示编辑
     $("#E1dit").val(dAtaObj[i].title);
     $("#E2dit").val(dAtaObj[i].diary);
@@ -14,9 +15,23 @@ function showEdit(i) {//显示编辑
 }
 
 function s1arch() {
-    alert($("#s1arch").val());
-    for (var i = 0; i < dAtaObj.length; i++) {
-
+    var sUlt = [];
+    if ($("#s1arch").val() != "") {
+        var s = new RegExp($("#s1arch").val(), "ig")
+        for (var i = 0; i < dAtaObj.length; i++) {
+            if (s.test(diarytitle[i])) {
+                sUlt.push(i);
+            }
+        }
+        displayD(sUlt);
+    } else {
+        displayD();
+    }
+    if (localStorage.skin == 2) {//重新渲染皮肤
+        chSkin2();
+    } else {
+        chSkin1();
+        localStorage.skin = 1;
     }
 }
 
@@ -32,6 +47,7 @@ function finEdit() {
         alert("没有标题的日记不作数哦！")
     }
 }
+
 function getTime() {//时间格式化
     tIme = new Date();
     var year = tIme.getFullYear();
@@ -42,6 +58,7 @@ function getTime() {//时间格式化
     var sec = tIme.getSeconds();
     return year + "-" + mon + "-" + day + " " + hour + ":" + min + ":" + sec;
 }
+
 function chColor(className, cOlor1) {//对象切换颜色
     var oBj = document.getElementsByClassName(className);
     for (var i = 0; i < oBj.length; i++) {
@@ -49,6 +66,7 @@ function chColor(className, cOlor1) {//对象切换颜色
 
     }
 }
+
 function chSkin() {//切换皮肤
     if (localStorage.skin == "1") {
         chSkin2();
@@ -56,18 +74,21 @@ function chSkin() {//切换皮肤
         chSkin1();
     }
 }
+
 function chSkin1() {//显示皮肤1
     localStorage.skin = 1;
     document.body.style.background = "#e2e2e2";//1
     chColor("chCol", "#ffffff",);
     chColor("card", "#ffffff");
 }
+
 function chSkin2() {//显示皮肤2
     localStorage.skin = 2;
     document.body.style.background = "#494949";//2
     chColor("chCol", "#e5e5e5");
     chColor("card", "#bababa");
 }
+
 function sAve() {
     if ($("#tiTle").val()) {
         var s = '{"title":"' + $("#tiTle").val() + '","diary":"' +
@@ -80,10 +101,12 @@ function sAve() {
         alert("没有标题的日记不作数哦！")
     );
 }
+
 function unDo() {
-localStorage.diaryData=localStorage.undo;
-location.reload();
+    localStorage.diaryData = localStorage.undo;
+    location.reload();
 }
+
 function chDiary(a, b, o) {
     if (o == null) {
         dAtaObj.splice(a, b);
@@ -97,14 +120,11 @@ function chDiary(a, b, o) {
 
 function displayD(ii) {
     var disDiary = "";
-    var i = 0;
     var long = dAtaObj.length;
-    if (ii != undefined) {
-        i = ii;
-        long = ii + 1;
-    }
-    for (; i < long; i++) {
-        diarytitle.push(dAtaObj[i].title);
+    for (var i = 0; i < long; i++) {
+        if (ii != undefined && !ii.includes(i)) {
+            continue;
+        }
         disDiary = disDiary +
             "<div id='D" + i +
             "' class=\"card chCol\"><div class=\"card-header\">" +
@@ -119,9 +139,13 @@ function displayD(ii) {
     }
     document.getElementById("diAry").innerHTML = disDiary;
 }
+
 window.onload = function () {
     if (typeof (Storage) !== "undefined") {
         if (dAtaObj.length) {//非第一次
+            for (var i = 0; i < dAtaObj.length; i++) {
+                diarytitle.push(dAtaObj[i].title);
+            }
             displayD();
         } else {//第一次进入
             document.getElementById("diAry").innerHTML =
@@ -142,22 +166,22 @@ window.onload = function () {
         if (localStorage.tips == 1) {
             $("#tips").html("  <div class=\"alert alert-success alert-dismissible fade show\">" +
                 "<button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>" +
-                "<strong>完成!</strong> 你的日记已保存。" +
+                "<strong>🎉 完成!</strong> 你的日记已保存。" +
                 "</div>");
             localStorage.tips = 0;
         }
         if (localStorage.tips == 2) {
             $("#tips").html("  <div class=\"alert alert-success alert-dismissible fade show\">" +
                 "<button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>" +
-                "<strong>完成!</strong> 你的日记已重新编辑。" +
+                "<strong>🎉 完成!</strong> 你的日记已重新编辑。" +
                 "</div>");
             localStorage.tips = 0;
         }
         if (localStorage.tips == 3) {
             $("#tips").html("  <div class=\"alert alert-success alert-dismissible fade show\">" +
                 "<button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>" +
-                "<strong>完成!</strong> 你的日记已删除。 <strong><a href=\"#\" " +
-                "onclick='unDo()' class=\"alert-link\">撤销 ？</a></strong>" +
+                "<strong>🎉 完成!</strong> 你的日记已删除。 <strong><a href=\"#\" " +
+                "onclick='unDo()' class=\"alert-link\">撤销️⁉</a>️</strong>" +
                 "</div>");
             localStorage.tips = 0;
         }
