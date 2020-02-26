@@ -19,7 +19,7 @@ function s1arch() {
     if ($("#s1arch").val() != "") {
         var s = new RegExp($("#s1arch").val(), "ig")
         for (var i = 0; i < dAtaObj.length; i++) {
-            if (s.test(diarytitle[i])) {
+            if (diarytitle[i].search(s) != -1) {
                 sUlt.push(i);
             }
         }
